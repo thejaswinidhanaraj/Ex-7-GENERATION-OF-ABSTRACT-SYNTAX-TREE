@@ -1,6 +1,6 @@
 # Ex-7-GENERATION-OF-ABSTRACT-SYNTAX-TREE
 CONVERSION OF THE BNF RULES INTO YACC FORM AND GENERATION OF ABSTRACT SYNTAX TREE
-# Date:
+# Date:05-05-2024
 # Aim: 
 To write a program to convert the BNF rules into YACC form and to generate Abstract Syntax Tree.
 # ALGORITHM
@@ -17,7 +17,46 @@ To write a program to convert the BNF rules into YACC form and to generate Abstr
 8.	Compile these with the C compiler as gcc lex.yy.c y.tab.c
 9.	A C program is given as input and the abstract syntax tree is generated as output.
 # PROGRAM
+program;int.\file
+```
+%{
+#include "y.tab.h"
+#include <stdio.h>
+#include <string.h>
+int LineNo=1;
+%}
+
+identifier [a-zA-Z][_a-zA-Z0-9]*
+number [0-9]+|([0-9]*\.[0-9]+)
+
+%%
+
+main\(\) { return MAIN; }
+if { return IF; }
+else { return ELSE; }
+while { return WHILE; }
+int|char|float { return TYPE; }
+
+{identifier} { strcpy(yylval.var,yytext); return VAR; }
+{number} { strcpy(yylval.var,yytext); return NUM; }
+
+\< { return '<'; }
+\> { return '>'; }
+\>= { return ">="; }
+\<= { return "<="; }
+== { return "=="; }
+
+[ \t] ;
+\n { LineNo++; }
+
+. { return yytext[0]; }
+
+%%
+```
 # Output
+
+![ex7 cd](https://github.com/thejaswinidhanaraj/Ex-7-GENERATION-OF-ABSTRACT-SYNTAX-TREE/assets/148514511/9d918c1e-0777-4509-b1c4-dfbd847c5e27)
+
 # Result
 Conversion of the BNF rules into YACC form and to generate Abstract Syntax Tree is implemented.
 
